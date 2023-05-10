@@ -1,17 +1,18 @@
 require("dotenv").config();
 const express = require("express");
+const cors = require("cors");
 const db = require("./db");
 //const morgan = require("morgan");
 const app = express();
 
 //middleware
+app.use(cors());
 app.use(express.json());
 
 //get all restaurants
 app.get("/api/v1/restaurants", async (req, res) => {
   try {
     const results = await db.query("SELECT * FROM restaurants");
-    console.log(results);
     res.status(200).json({
       status: "success",
       results: results.rows.length,
@@ -31,7 +32,6 @@ app.get("/api/v1/restaurants/:id", async (req, res) => {
     const results = await db.query("SELECT * FROM restaurants WHERE id = $1", [
       id,
     ]);
-    console.log(results);
     res.status(200).json({
       status: "success",
       results: results.rows.length,
@@ -105,7 +105,6 @@ app.delete("/api/v1/restaurants/:id", async (req, res) => {
 });
 
 const port = process.env.PORT || 3006;
-console.log(port);
 app.listen(port, () => {
   console.log(`Server is up on port ${port}`);
 });
