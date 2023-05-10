@@ -58,7 +58,7 @@ app.post("/api/v1/restaurants/", async (req, res) => {
       status: "success",
       results: results.rows.length,
       data: {
-        restaurants: results.rows,
+        restaurants: results.rows[0],
       },
     });
   } catch (error) {
