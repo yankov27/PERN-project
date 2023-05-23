@@ -32,11 +32,16 @@ app.get("/api/v1/restaurants/:id", async (req, res) => {
     const results = await db.query("SELECT * FROM restaurants WHERE id = $1", [
       id,
     ]);
+
+    const reviews = await db.query(
+      "SELECT * FROM reviews WHERE restaurant_id = $1",
+      [id]
+    );
     res.status(200).json({
       status: "success",
-      results: results.rows.length,
       data: {
         restaurant: results.rows[0],
+        reviews: reviews.rows,
       },
     });
   } catch (error) {
