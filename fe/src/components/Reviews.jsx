@@ -2,7 +2,6 @@ import React from "react";
 import StarRating from "./StarRating";
 
 const Reviews = ({ reviews }) => {
-  console.log(reviews);
   if (reviews) {
     return (
       <div className="row row-cols-3 mb-2">
